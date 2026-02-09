@@ -2,99 +2,20 @@
 <html lang="ro">
 <head>
     <meta charset="UTF-8">
+    <title>Valentine’s Catch the Hearts 💘</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine’s Catch the Hearts!</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: #ffe6f2;
-            font-family: 'Arial', sans-serif;
-        }
-        #game {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-        }
-        .heart {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: url('https://i.imgur.com/3P5xgLQ.png') no-repeat center/contain;
-        }
-        #basket {
-            position: absolute;
-            bottom: 20px;
-            left: calc(50% - 50px);
-            width: 100px;
-            height: 60px;
-            background: url('https://i.imgur.com/1Y4D3Vv.png') no-repeat center/contain;
-        }
-        #scoreboard {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 24px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="game">
-        <div id="scoreboard">Score: <span id="score">0</span></div>
+        <div id="scoreboard">
+            ❤️ Score: <span id="score">0</span>
+        </div>
+
         <div id="basket"></div>
     </div>
 
-    <script>
-        const game = document.getElementById('game');
-        const basket = document.getElementById('basket');
-        const scoreDisplay = document.getElementById('score');
-        let score = 0;
-
-        // Mută coșul cu mouseul
-        game.addEventListener('mousemove', (e) => {
-            let x = e.clientX - basket.offsetWidth / 2;
-            if (x < 0) x = 0;
-            if (x + basket.offsetWidth > window.innerWidth) x = window.innerWidth - basket.offsetWidth;
-            basket.style.left = x + 'px';
-        });
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.style.left = Math.random() * (window.innerWidth - 40) + 'px';
-            heart.style.top = '-40px';
-            game.appendChild(heart);
-
-            let fallSpeed = 1 + Math.random() * 3;
-
-            function fall() {
-                heart.style.top = (heart.offsetTop + fallSpeed) + 'px';
-
-                // Daca ajunge jos
-                if (heart.offsetTop > window.innerHeight) {
-                    heart.remove();
-                }
-                
-                // Daca prinde coșul
-                const basketRect = basket.getBoundingClientRect();
-                const heartRect = heart.getBoundingClientRect();
-                
-                if (heartRect.bottom > basketRect.top &&
-                    heartRect.left < basketRect.right &&
-                    heartRect.right > basketRect.left) {
-                    
-                    score++;
-                    scoreDisplay.textContent = score;
-                    heart.remove();
-                } else {
-                    requestAnimationFrame(fall);
-                }
-            }
-            fall();
-        }
-
-        setInterval(createHeart, 800);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+
